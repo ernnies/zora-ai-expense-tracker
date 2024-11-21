@@ -30,7 +30,7 @@ const Home = () => {
     }
 
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-    if (accoun
+    if (ac
   //Calls metamask to connect wallet on clicking Connect Wallet Button
   const connectWallet = async () => {
     try {
