@@ -26,7 +26,7 @@ const Home = () => {
     if (ethereum) {
       console.log('Got the ethereum Object: ', ethereum)
     } else {
-      console.log('No Wallet found. Please connect Walle
+      console.log('No Wallet found. Please connect W
   //Calls metamask to connect wallet on clicking Connect Wallet Button
   const connectWallet = async () => {
     try {
