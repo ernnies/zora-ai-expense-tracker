@@ -33,7 +33,7 @@ const Home = () => {
     if (accounts.length !== 0) {
       console.log('Found authorized Account: ', accounts[0])
     } else {
-      console.log('No authorize
+      console.log('No author
   //Calls metamask to connect wallet on clicking Connect Wallet Button
   const connectWallet = async () => {
     try {
