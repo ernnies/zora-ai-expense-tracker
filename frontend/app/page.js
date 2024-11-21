@@ -31,7 +31,7 @@ const Home = () => {
 
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
     if (accounts.length !== 0) {
-      console.log('Fo
+      console.log(
   //Calls metamask to connect wallet on clicking Connect Wallet Button
   const connectWallet = async () => {
     try {
