@@ -29,7 +29,7 @@ const Home = () => {
       console.log('No Wallet found. Please connect Wallet')
     }
 
-    const accounts = await ethereum.requ
+    const accounts = await ethereum.r
   //Calls metamask to connect wallet on clicking Connect Wallet Button
   const connectWallet = async () => {
     try {
