@@ -10,7 +10,7 @@ import BarChart from "../../components/BarChartComponent/BarChartComponent";
 const Home = () => {
   const [balance, setBalance] = useState(0);
   const [expense, setExpense] = useState(0);
-  //a state variable is require to update whther component is mounted or not
+  //a state variable is require to update whether component is mounted or not
   const [isMounted, setIsMounted] = useState(false);
   // an array of objects is require where objects are called expense
   const [expenseList, setExpenseList] = useState([]);
