@@ -1,24 +1,7 @@
-// components/AppForms/AddExpenseForm/AddExpenseForm.jsx
-import { useState, useEffect } from 'react';
+// src/components/AppForms/AddExpenseForm/AddExpenseForm.jsx
+import { useState } from 'react';
 import { useSnackbar } from 'notistack';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import styles from './AddExpenseForm.module.css';
-
-const validationSchema = Yup.object().shape({
-  title: Yup.string()
-    .required('Title is required')
-    .max(50, 'Title too long'),
-  category: Yup.string()
-    .required('Category is required'),
-  price: Yup.number()
-    .required('Price is required')
-    .positive('Price must be positive')
-    .typeError('Must be a number'),
-  date: Yup.date()
-    .required('Date is required')
-    .max(new Date(), 'Date cannot be in the future')
-});
 
 export const AddExpenseForm = ({ 
   initialValues = {}, 
@@ -27,96 +10,114 @@ export const AddExpenseForm = ({
   balance
 }) => {
   const { enqueueSnackbar } = useSnackbar();
-  
-  const handleSubmit = async (values, { setSubmitting }) => {
-    try {
-      await onSubmit(values);
-      onCancel();
-    } catch (error) {
-      enqueueSnackbar(error.message, { variant: 'error' });
-    } finally {
-      setSubmitting(false);
+  const [formData, setFormData] = useState({
+    title: initialValues.title || '',
+    category: initialValues.category || '',
+    price: initialValues.price || '',
+    date: initialValues.date || new Date().toISOString().split('T')[0]
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (!formData.title || !formData.category || !formData.price || !formData.date) {
+      enqueueSnackbar('All fields are required', { variant: 'error' });
+      return;
     }
+
+    if (Number(formData.price) <= 0) {
+      enqueueSnackbar('Price must be positive', { variant: 'error' });
+      return;
+    }
+
+    if (Number(formData.price) > balance) {
+      enqueueSnackbar('Price exceeds balance', { variant: 'error' });
+      return;
+    }
+
+    onSubmit({
+      ...formData,
+      price: Number(formData.price)
+    });
   };
 
   return (
     <div className={styles.formWrapper}>
       <h3>{initialValues.id ? 'Edit Expense' : 'Add Expense'}</h3>
       
-      <Formik
-        initialValues={{
-          title: '',
-          category: '',
-          price: '',
-          date: new Date().toISOString().split('T')[0],
-          ...initialValues
-        }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ isSubmitting, values }) => (
-          <Form className={styles.form}>
-            <div className={styles.formGroup}>
-              <label htmlFor="title">Title</label>
-              <Field 
-                name="title" 
-                type="text" 
-                placeholder="Dinner with friends" 
-              />
-              <ErrorMessage name="title" component="div" className={styles.error} />
-            </div>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.formGroup}>
+          <label>Title</label>
+          <input
+            name="title"
+            type="text"
+            value={formData.title}
+            onChange={handleChange}
+            placeholder="Dinner with friends"
+          />
+        </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="price">Amount</label>
-              <Field 
-                name="price" 
-                type="number" 
-                placeholder="500" 
-              />
-              <ErrorMessage name="price" component="div" className={styles.error} />
-              {values.price > balance && (
-                <div className={styles.warning}>
-                  This expense exceeds your current balance
-                </div>
-              )}
+        <div className={styles.formGroup}>
+          <label>Amount</label>
+          <input
+            name="price"
+            type="number"
+            value={formData.price}
+            onChange={handleChange}
+            placeholder="500"
+          />
+          {formData.price > balance && (
+            <div className={styles.warning}>
+              This expense exceeds your current balance
             </div>
+          )}
+        </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="category">Category</label>
-              <Field as="select" name="category">
-                <option value="">Select category</option>
-                <option value="food">Food</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="travel">Travel</option>
-              </Field>
-              <ErrorMessage name="category" component="div" className={styles.error} />
-            </div>
+        <div className={styles.formGroup}>
+          <label>Category</label>
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+          >
+            <option value="">Select category</option>
+            <option value="food">Food</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="travel">Travel</option>
+          </select>
+        </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="date">Date</label>
-              <Field name="date" type="date" />
-              <ErrorMessage name="date" component="div" className={styles.error} />
-            </div>
+        <div className={styles.formGroup}>
+          <label>Date</label>
+          <input
+            name="date"
+            type="date"
+            value={formData.date}
+            onChange={handleChange}
+          />
+        </div>
 
-            <div className={styles.buttonGroup}>
-              <button 
-                type="submit" 
-                className={styles.primaryButton}
-                disabled={isSubmitting || values.price > balance}
-              >
-                {initialValues.id ? 'Update Expense' : 'Add Expense'}
-              </button>
-              <button 
-                type="button" 
-                className={styles.secondaryButton}
-                onClick={onCancel}
-              >
-                Cancel
-              </button>
-            </div>
-          </Form>
-        )}
-      </Formik>
+        <div className={styles.buttonGroup}>
+          <button
+            type="submit"
+            className={styles.primaryButton}
+          >
+            {initialValues.id ? 'Update Expense' : 'Add Expense'}
+          </button>
+          <button
+            type="button"
+            className={styles.secondaryButton}
+            onClick={onCancel}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

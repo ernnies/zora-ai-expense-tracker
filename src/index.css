@@ -1,110 +1,51 @@
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+/* updated :root variables in index.css */
 :root {
-
-  --primary-bg-color: #3b3b3b;
-  --secondary-bg-color: #9b9b9b;
-  --font-heading: "Ubuntu";
-  --font-body: "Ubuntu";
+  /* Colors */
+  --primary: #4361ee;
+  --primary-dark: #3a56d4;
+  --secondary: #3f37c9;
+  --success: #4cc9f0;
+  --danger: #f72585;
+  --warning: #f8961e;
+  --info: #4895ef;
+  --light: #f8f9fa;
+  --dark: #212529;
+  
+  /* Theme */
+  --bg-color: #ffffff;
+  --text-color: #212529;
+  --card-bg: #f8f9fa;
+  --border-color: #dee2e6;
+  
+  /* Typography */
+  --font-heading: 'Ubuntu', sans-serif;
+  --font-body: 'Ubuntu', sans-serif;
+  --base-font-size: 16px;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Borders */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+  --shadow-xl: 0 20px 25px rgba(0,0,0,0.1);
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-/*
-"*" selector target all elements
-"*::before" target the pseudo-element
-"*::after" target the pseudo -element
-we are apply box-sizing : border-box so that
-the provided width and height does not change if we add border
-and padding
-*/
-
-* {
-  margin: 0;
-}
-
-/*
-This rule removes all default margins from every element
-*/
-html,
-body {
-  height: 100%;
-}
-/*
-This ensure that the html and body elements fill the entire height of the browser 
-window
-*/
-body {
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
-/*
-line-height sets the default line height for text in the body to improve readibility
--webkit-font-smoothing:antialiased; 
-This property improves the appearance of text on macOS and iOS devices by reducing the
-"jaggedness" of fonts.
-It provides better text rendering for a cleaner look and more readable text across browsers.
-
-*/
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-}
-/*
--Media elements like images,videos and canvases are typically inline elements
--it is displayed to block it ensure that they behave more predictably in layouts.
-max-width:100%;This ensures that media elements are responsive and don't overflow containers
-*/
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-/* font:inherit it forces input elements to inherit the font family ,size and style ffrom their parent
-.it helps maintain consistent typography across form elements and the rest of the page
---By defaults form elements may use different fonts across browsers so to avoid this 
-it is used */
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word;
-}
-/*
-overflow-wrap:break-word: This allows long words to break and wrap onto next line instead of overflowing their 
-container
-
---It ensure that large blocks of text don't break the layout by overflowing out of their containers
-
-*/
-
-
-#root,
-#__next {
-  isolation: isolate;
-}
-
-/*
-#root and #__next (often used in framework like React and Next.js)
---To create a new stacking context,preventing issues like z-index conflicts from affecting
-other parts of the page.
-
---It is used to avoids layout problems when layers overlap,especially in complex layouts with modals 
-or dropdowns.
-*/
-h1,h2,h3,h4,h5,h6,button{
-  font-family:var(--font-heading);
-}
-p,a{
-  font-family:var(--font-body);
+/* Dark theme */
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #f8f9fa;
+  --card-bg: #1e1e1e;
+  --border-color: #2d2d2d;
 }
