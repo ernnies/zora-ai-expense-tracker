@@ -1,153 +1,122 @@
-import styles from "./AddExpenseForm.module.css";
-import Button from "../../Button/Button";
-import { useEffect, useState } from "react";
-import { useSnackbar } from "notistack";
+// components/AppForms/AddExpenseForm/AddExpenseForm.jsx
+import { useState, useEffect } from 'react';
+import { useSnackbar } from 'notistack';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import styles from './AddExpenseForm.module.css';
 
-const AddExpenseForm = ({
-  setIsOpen,
-  expenseList,
-  setExpenseList,
-  balance,
-  setBalance,
-  editId,
+const validationSchema = Yup.object().shape({
+  title: Yup.string()
+    .required('Title is required')
+    .max(50, 'Title too long'),
+  category: Yup.string()
+    .required('Category is required'),
+  price: Yup.number()
+    .required('Price is required')
+    .positive('Price must be positive')
+    .typeError('Must be a number'),
+  date: Yup.date()
+    .required('Date is required')
+    .max(new Date(), 'Date cannot be in the future')
+});
+
+export const AddExpenseForm = ({ 
+  initialValues = {}, 
+  onSubmit, 
+  onCancel,
+  balance
 }) => {
-  //an object require which will store form data
-  const [expenseFormData, setExpenseFormData] = useState({
-    title: "",
-    category: "",
-    price: "",
-    date: "",
-  });
   const { enqueueSnackbar } = useSnackbar();
-  // update state variable value on changing form value
-  const handleChange = (e) => {
-    const name = e.target.name;
-    setExpenseFormData((prev) => ({ ...prev, [name]: e.target.value }));
-  };
-  //on form submission need some action
-  const handleAddExpense = (e) => {
-    //prevent the default form submission
-    e.preventDefault();
-    if (balance < Number(expenseFormData.price)) {
-      enqueueSnackbar("Price should be less than the wallet balance", {
-        variant: "warning",
-      });
-      //close the form
-      setIsOpen(false);
-      return;
+  
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      await onSubmit(values);
+      onCancel();
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: 'error' });
+    } finally {
+      setSubmitting(false);
     }
-    //first deduct from wallet balance
-    setBalance((prev) => prev - Number(expenseFormData.price));
-
-    //for every expense there is a need an id for unique expense
-    //so that we can do edit in that expense
-    console.log("check 1",expenseList)
-    const lastId = expenseList.length > 0 ? expenseList[0].id : 0;
-    console.log("check 2",lastId);
-    setExpenseList((prev) => [
-      { ...expenseFormData, id: lastId + 1 },
-      ...prev,
-    ]);
-    console.log("check 3",expenseList)
-    //after adding the expense make sure form data should be clear
-    setExpenseFormData({
-      title: "",
-      category: "",
-      price: "",
-      date: "",
-    });
-    //make sure to clsoe the form when expense added
-    setIsOpen(false);
-  };
-  const handleEditForm = (e) => {
-    e.preventDefault();
-    const updatedList = expenseList.map((item) => {
-      if (item.id == editId) {
-        const changInPrice = item.price - Number(expenseFormData.price);
-        //a check should be there to check whether price is excedding wallet balance
-        if (changInPrice < 0 && Math.abs(changInPrice) > balance) {
-          enqueueSnackbar("Price should not be exceed the wallet balance", {
-            variant: "warning",
-          });
-          setIsOpen(false);
-          return { ...item };
-        }
-        setBalance((prev) => prev + changInPrice);
-        return { ...expenseFormData, id: editId };
-      } else {
-        return item;
-      }
-    });
-    setExpenseList(updatedList);
-    setIsOpen(false);
   };
 
-  useEffect(() => {
-    if (editId) {
-      const expenseData = expenseList.find((item) => item.id == editId);
-      setExpenseFormData({
-        title: expenseData.title,
-        category: expenseData.category,
-        price: expenseData.price,
-        date: expenseData.date,
-      });
-    }
-  }, [editId]);
   return (
-    <div className={styles.expenseFormWrapper}>
-      <h3>{editId ? "Edit Expense" : "Add Expenses"}</h3>
-      <form onSubmit={editId ? handleEditForm : handleAddExpense}>
-        {/* input for title of expense */}
-        <input
-          type="text"
-          name="title"
-          placeholder="Title"
-          value={expenseFormData.title}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="price"
-          placeholder="Price"
-          value={expenseFormData.price}
-          onChange={handleChange}
-          required
-        />
+    <div className={styles.formWrapper}>
+      <h3>{initialValues.id ? 'Edit Expense' : 'Add Expense'}</h3>
+      
+      <Formik
+        initialValues={{
+          title: '',
+          category: '',
+          price: '',
+          date: new Date().toISOString().split('T')[0],
+          ...initialValues
+        }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ isSubmitting, values }) => (
+          <Form className={styles.form}>
+            <div className={styles.formGroup}>
+              <label htmlFor="title">Title</label>
+              <Field 
+                name="title" 
+                type="text" 
+                placeholder="Dinner with friends" 
+              />
+              <ErrorMessage name="title" component="div" className={styles.error} />
+            </div>
 
-        <select
-          name="category"
-          value={expenseFormData.category}
-          onChange={handleChange}
-          required
-        >
-          <option value="" disabled>
-            Select category
-          </option>
-          <option value="food">Food</option>
-          <option value="entertainment">Entertainment</option>
-          <option value="travel">Travel</option>
-        </select>
-        <input
-          name="date"
-          type="date"
-          value={expenseFormData.date}
-          onChange={handleChange}
-          required
-        />
-        <Button type="submit" style="primary" btnshadow={true}>
-          {editId ? "Edit Expense" : "Add Expense"}
-        </Button>
-        <Button
-          style="secondary"
-          btnshadow={true}
-          handleClick={() => setIsOpen((prev) => !prev)}
-        >
-          Cancel
-        </Button>
-      </form>
+            <div className={styles.formGroup}>
+              <label htmlFor="price">Amount</label>
+              <Field 
+                name="price" 
+                type="number" 
+                placeholder="500" 
+              />
+              <ErrorMessage name="price" component="div" className={styles.error} />
+              {values.price > balance && (
+                <div className={styles.warning}>
+                  This expense exceeds your current balance
+                </div>
+              )}
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="category">Category</label>
+              <Field as="select" name="category">
+                <option value="">Select category</option>
+                <option value="food">Food</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="travel">Travel</option>
+              </Field>
+              <ErrorMessage name="category" component="div" className={styles.error} />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="date">Date</label>
+              <Field name="date" type="date" />
+              <ErrorMessage name="date" component="div" className={styles.error} />
+            </div>
+
+            <div className={styles.buttonGroup}>
+              <button 
+                type="submit" 
+                className={styles.primaryButton}
+                disabled={isSubmitting || values.price > balance}
+              >
+                {initialValues.id ? 'Update Expense' : 'Add Expense'}
+              </button>
+              <button 
+                type="button" 
+                className={styles.secondaryButton}
+                onClick={onCancel}
+              >
+                Cancel
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
-
-export default AddExpenseForm;
