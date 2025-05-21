@@ -3,7 +3,7 @@ import Button from "../../Button/Button.jsx";
 import { useState } from "react";
 import { useSnackbar } from 'notistack';
 
-const AddIncomeForm = ({ setIsOpen, setBalance }) => {
+export const AddIncomeForm = ({ setIsOpen, setBalance }) => {
   // In AddIncomeForm we need to first know whether
   //component is open or not
   // console.log(styles);
@@ -40,4 +40,4 @@ const AddIncomeForm = ({ setIsOpen, setBalance }) => {
   );
 };
 
-export default AddIncomeForm;
+

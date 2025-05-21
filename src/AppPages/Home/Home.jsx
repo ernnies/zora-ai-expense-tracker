@@ -1,4 +1,3 @@
-// AppPages/Home/Home.jsx
 import { useState } from 'react';
 import { useExpenses } from '../../hooks/useExpenses';
 import { ModalApp } from '../../components/Modal/ModalApp';
@@ -8,7 +7,7 @@ import { AddIncomeForm } from '../../components/AppForms/AddIncomeForm/AddIncome
 import { AddExpenseForm } from '../../components/AppForms/AddExpenseForm/AddExpenseForm';
 import { PieCharts } from '../../components/PieCharts/PieCharts';
 import { TransactionList } from '../../components/TransactionList/TransactionList';
-import { BarChart } from '../../components/BarChartComponent/BarChartComponent';
+import { BarChartComponent as BarChart } from '../../components/BarChartComponent/BarChartComponent';
 import { ThemeToggle } from '../../components/ThemeToggle/ThemeToggle';
 
 const Home = () => {
