@@ -22,7 +22,6 @@
 .danger{
     background: linear-gradient(90deg,#FF9595,#FF4747, #FF3838);
     color:#FFF
-
 }
 .primary{
     background: #F4BB4A;
@@ -30,4 +29,35 @@
 }
 .shadow{
     box-shadow: 0 4px 4px rgba(0,0,0,0.25);
+}
+
+
+.makes {
+  background: linear-gradient(90deg,#B5DC52,#89E148 );
+    color:#FFF
+}
+
+.bals {
+    background: linear-gradient(90deg,#B5DC52,#89E148 );
+    color:#FFF
+}
+
+.coined {
+    background: linear-gradient(90deg,#B5DC52,#89E148 );
+    color:#FFF
+}
+
+.buds{
+    background: linear-gradient(90deg,#B5DC52,#89E148 );
+    color:#FFF
+}
+
+.saves{
+    background: linear-gradient(90deg,#B5DC52,#89E148 );
+    color:#FFF
+}
+
+.expendictures{
+    background: linear-gradient(90deg,#B5DC52,#89E148 );
+    color:#FFF
 }

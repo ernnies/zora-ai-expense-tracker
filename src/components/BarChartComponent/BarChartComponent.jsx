@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import styles from "./BarChartComponent.module.css";
 
-export const BarChartComponent=({ data })=> {
+const BarChartComponent=({ data })=> {
   return (
     <div className={styles.expenseChart}>
       <h2>Top Expenses</h2>
@@ -34,3 +34,4 @@ export const BarChartComponent=({ data })=> {
     </div>
   );
 }
+export default BarChartComponent;

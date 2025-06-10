@@ -5,8 +5,7 @@
 [![AI-Powered](https://img.shields.io/badge/AI-Predictive_Analytics-FF6D00)]()
 
 Transform personal finance into a dynamic, tradable experience with on-chain tokenization. This dapp converts expenses into ERC-20 tokens ($FOOD, $TRAVEL) using Zora's Coins Protocol, enhanced by AI-driven insights.
-
-→ **Live Demo**: [Coming Soon]  
+ 
 → **WaveHack Submission**: [Zora 2nd Wave](https://zora.co/wavehack)
 
 ## 🌟 Key Features

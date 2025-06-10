@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-export const ModalApp=({isModalOpen,setIsOpen,children})=>{
+const ModalApp=({isModalOpen,setIsOpen,children})=>{
     // console.log(isModalOpen);
     const handleModalClose=()=>{
         setIsOpen(false);
@@ -34,3 +34,5 @@ export const ModalApp=({isModalOpen,setIsOpen,children})=>{
         </Modal>
     )
 }
+
+export default ModalApp;

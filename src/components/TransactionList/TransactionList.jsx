@@ -1,11 +1,11 @@
 import TransactionCard from "../TransactionCard/TransactionCard";
 import styles from "./TransactionList.module.css";
-import { ModalApp } from "../Modal/ModalApp";
-import { AddExpenseForm } from '../AppForms/AddExpenseForm/AddExpenseForm';
+import ModalApp from "../Modal/ModalApp";
+import AddExpenseForm from "../AppForms/AddExpenseForm/AddExpenseForm";
 import { useEffect, useState } from "react";
 import Pagination from "../Pagination/Pagination";
 
-export const TransactionList = ({
+const TransactionList = ({
   transactions,
   title,
   editTransactions,
@@ -96,4 +96,4 @@ export const TransactionList = ({
     </div>
   );
 };
-
+export default TransactionList;

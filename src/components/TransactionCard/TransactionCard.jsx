@@ -20,7 +20,7 @@ const TransactionCard = ({ details, handleDelete, handleEdit }) => {
       </div>
 
       <div className={styles.cardInner}>
-        <p className={styles.cardPrice}>{`₹${details.price}`}</p>
+        <p className={styles.cardPrice}>{`$${details.price}`}</p>
         <div className={styles.cardButtonWrapper}>
           <button className={styles.cardDelete} onClick={handleDelete}>
             <IoMdCloseCircleOutline />

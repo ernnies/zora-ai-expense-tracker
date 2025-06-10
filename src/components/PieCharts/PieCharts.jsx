@@ -16,7 +16,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     );
 };
 
-export const PieCharts=({data})=> {
+const PieCharts=({data})=> {
     // console.log(data);
     return (
         <ResponsiveContainer width="100%" height={270}>
@@ -40,3 +40,4 @@ export const PieCharts=({data})=> {
         </ResponsiveContainer>
     );
 }
+export default PieCharts;
