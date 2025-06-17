@@ -6,7 +6,6 @@
 
 Transform personal finance into a dynamic, tradable experience with on-chain tokenization. This dapp converts expenses into ERC-20 tokens ($FOOD, $TRAVEL) using Zora's Coins Protocol, enhanced by AI-driven insights.
  
-→ **WaveHack Submission**: [Zora 2nd Wave](https://zora.co/wavehack)
 
 ## 🌟 Key Features
 - **Tokenized Expenses**: Mint ERC-20 coins for any spending category (100M supply per token)
