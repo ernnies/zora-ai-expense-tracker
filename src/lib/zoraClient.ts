@@ -53,10 +53,12 @@ export async function tradeExpenseCoin(
     {
       direction: params.direction,
       target: params.target,
-      recipient: params.recipient,
-      orderSize: params.orderSize,
-      minAmountOut: params.minAmountOut,
-      tradeReferrer: params.tradeReferrer,
+      args: {
+        recipient: params.recipient,
+        orderSize: params.orderSize,
+        minAmountOut: params.minAmountOut,
+        tradeReferrer: params.tradeReferrer,
+      },
     },
     { ...walletClient, account },
     publicClient
