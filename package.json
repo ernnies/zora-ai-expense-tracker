@@ -1,30 +1,31 @@
 {
-  "name": "expensedapp",
+  "name": "zora-ai-expense-tracker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@dfinity/agent": "^2.1.3",
-    "@dfinity/auth-client": "^2.3.0",
-    "@dfinity/candid": "^2.1.3",
-    "@dfinity/principal": "^2.1.3",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tanstack/react-query": "^5.80.7",
+    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0",
+    "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "formik": "^2.4.6",
-    "notistack": "^3.0.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-icons": "^5.3.0",
-    "react-modal": "^3.16.1",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.126",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@zoralabs/coins-sdk": "^0.2.1",
+    "axios": "^1.10.0",
+    "framer-motion": "^12.18.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-scripts": "5.0.1",
-    "recharts": "^2.12.7",
-    "web-vitals": "^2.1.4",
-    "yup": "^1.6.1"
+    "viem": "^2.31.2",
+    "wagmi": "^2.15.6",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy:icp": "npm run build && rm -rf icp-deploy/build && mkdir -p icp-deploy/build && cp -a build/. icp-deploy/build/ && cd icp-deploy && dfx deploy --network ic",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -45,5 +46,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.10",
+    "ajv": "^8.17.1",
+    "ajv-keywords": "^5.1.0",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.5",
+    "postcss-loader": "^6.2.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.5.4"
   }
 }
