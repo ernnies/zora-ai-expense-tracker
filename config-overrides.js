@@ -4,13 +4,10 @@ module.exports = override(
   addWebpackModuleRule({
     test: /\.js$/,
     enforce: 'pre',
-    include: /node_modules\/(@reown|superstruct)/,
+    include: /node_modules\/(@reown|superstruct|@apideck)/,
     loader: 'source-map-loader',
     options: {
-      filterSourceMappingUrl: (url, resourcePath) => {
-        // Skip source map parsing for problematic packages
-        return false;
-      },
+      filterSourceMappingUrl: () => false,
     },
   })
 );

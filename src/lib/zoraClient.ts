@@ -25,9 +25,13 @@ export async function createExpenseCoin(
   },
   account: Account
 ) {
+  const validUri = params.uri.startsWith('https://') || params.uri.startsWith('ipfs://')
+    ? params.uri
+    : `https://metadata.zora.co/${params.name}`; // Fallback URI
   const result = await createCoin(
     {
       ...params,
+      uri: validUri,
       chainId: base.id,
       currency: DeployCurrency.ZORA,
     },
@@ -73,5 +77,9 @@ export async function fetchCoinDetails(address: string) {
 
 export async function fetchTopGainers() {
   const response = await getCoinsTopGainers({ count: 10 });
-  return response.data?.exploreList?.edges?.map((edge: any) => edge.node) || [];
+  const coins = response.data?.exploreList?.edges?.map((edge: any) => ({
+    ...edge.node,
+    category: edge.node.name.includes('Stable') ? 'Budget-Friendly' : 'Investment',
+  })) || [];
+  return coins;
 }

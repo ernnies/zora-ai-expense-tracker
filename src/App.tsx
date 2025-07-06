@@ -1,53 +1,40 @@
-import { useEffect } from "react";
-import { WagmiProvider, createConfig, http } from "wagmi";
-import { base } from "wagmi/chains";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Header } from "./components/Header";
-import { CoinCreator } from "./components/CoinCreator";
-import { CoinTrader } from "./components/CoinTrader";
-import { ExpenseTracker } from "./components/ExpenseTracker";
-import { AIPredictions } from "./components/AIPredictions";
-import { injected } from "wagmi/connectors";
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import ExpenseTracker from './components/ExpenseTracker';
+import TopGainers from './components/TopGainers';
 
-const queryClient = new QueryClient();
-
-const config = createConfig({
-  chains: [base],
-  transports: {
-    [base.id]: http(process.env.REACT_APP_RPC_URL),
-  },
-  connectors: [injected()],
-});
-
-function AppContent() {
-  useEffect(() => {
-    document.title = "Zora AI Expense Tracker";
-  }, []);
+const App = () => {
+  const [showOnboarding, setShowOnboarding] = useState(true);
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Header />
-      <main>
-        <CoinCreator />
-        <CoinTrader />
-        <ExpenseTracker />
-        <AIPredictions />
-      </main>
-      <footer className="bg-gray-800 text-white text-center py-4 mt-8">
-        <p>Built for Wavehack/Buildathon with Zora Coins Protocol</p>
-      </footer>
-    </div>
+    <BrowserRouter>
+      <div className="min-h-screen bg-gray-100">
+        {showOnboarding && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-md">
+              <h2 className="text-2xl font-bold mb-4">Welcome to Zora AI Expense Tracker</h2>
+              <p className="mb-2">Create custom coins to track expenses like groceries or rent.</p>
+              <p className="mb-4">Explore trending expense tokens to inform your budgeting.</p>
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                onClick={() => setShowOnboarding(false)}
+              >
+                Get Started
+              </button>
+            </div>
+          </div>
+        )}
+        <nav className="p-4 bg-blue-500 text-white">
+          <Link to="/" className="mr-4">Track Expenses</Link>
+          <Link to="/trending" className="mr-4">Trending Tokens</Link>
+        </nav>
+        <Routes>
+          <Route path="/" element={<ExpenseTracker />} />
+          <Route path="/trending" element={<TopGainers />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
-}
-
-function App() {
-  return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <AppContent />
-      </QueryClientProvider>
-    </WagmiProvider>
-  );
-}
+};
 
 export default App;
