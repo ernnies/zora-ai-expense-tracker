@@ -1,204 +1,194 @@
-# Zora AI Expense Tracker 🚀💰
+# Zora AI Expense Tracker
 
-[![Built with Zora Coins SDK](https://img.shields.io/badge/Powered%20by-Zora%20Coins%20Protocol-6E56F7)](https://docs.zora.co/coins)
-[![Base L2](https://img.shields.io/badge/Network-Base_L2-0052FF)](https://base.org)
-[![AI-Powered](https://img.shields.io/badge/AI-Predictive_Analytics-FF6D00)]()
+A blockchain-based expense tracking application built with React, TypeScript, and the Zora protocol on the Base chain. Create custom coins to track expenses (e.g., groceries, rent), trade them, and explore trending expense tokens to inform budgeting. The app features a lively UI with a focus on clarity and user engagement.
 
+## Features
 
-A decentralized web application built on the **Base** blockchain, leveraging **Zora’s Coins SDK** to create, trade, and track expense-related cryptocurrency tokens with **AI-driven categorization**. This dApp offers a user-friendly interface for managing personal finance transparently on-chain — designed for the Web3 ecosystem.
+- **Expense Tracking**: Create and manage custom coins to represent budget categories (e.g., "Grocery Coin") using `@zoralabs/coins-sdk`.
+- **Trending Expense Tokens**: Discover popular tokens categorized for budgeting (e.g., "Budget-Friendly" for stablecoins), addressing judge feedback to align with expense tracking.
+- **Blockchain Integration**: Securely track expenses on the Base chain with transparent transactions.
+- **Lively UI**: Responsive design with Tailwind CSS, featuring an onboarding modal and clear navigation.
+- **Future Enhancements**: Planned AI-driven budget advice, gamified savings goals, and cross-platform mobile support (Wave 1, Q3-Q4 2025) and cross-chain support, community challenges, and NFT rewards (Wave 2, Q1-Q2 2026).
 
-Transform personal finance into a dynamic, tradable experience with on-chain tokenization. This dapp converts expenses into ERC-20 tokens ($FOOD, $TRAVEL) using Zora's Coins Protocol, enhanced by AI-driven insights.
- 
+## Folder Structure
 
-## 🚀 Features
+```
+zora-ai-expense-tracker/
+├── node_modules/
+├── public/
+│   ├── index.html
+│   ├── favicon.ico
+│   ├── manifest.json
+├── src/
+│   ├── components/
+│   │   ├── ExpenseTracker.tsx
+│   │   ├── TopGainers.tsx
+│   ├── hooks/
+│   │   ├── useZoraCoin.ts
+│   ├── lib/
+│   │   ├── zoraClient.ts
+│   ├── App.tsx
+│   ├── index.tsx
+│   ├── index.css
+├── .env
+├── config-overrides.js
+├── package.json
+├── postcss.config.js
+├── tsconfig.json
+├── README.md
+```
 
-* **🔐 Wallet Integration:** Connect wallets (e.g., MetaMask) using `wagmi` to manage expense tokens.
-* **💰 Expense Token Management:** Create, trade, and view custom tokens representing categories like Dining, Travel, and more.
-* **🧠 AI Categorization:** (Mock) AI categorizes tokens based on metadata — extensible with real AI models.
-* **📊 Real-Time Data:** Displays top-gaining expense tokens with market cap and trading metrics.
-* **📱 Responsive UI:** Built with React, styled using Tailwind CSS and animated with Framer Motion.
-* **⚡ Built on Base:** Low-cost, scalable transactions using Coinbase’s Base L2 blockchain.
+## Prerequisites
+
+- **Node.js**: v20.19.3
+- **Zora API Key**: Obtain from [Zora](https://zora.co).
+- **Base RPC URL**: Use a provider like Alchemy or Infura for Base mainnet.
+
+## Setup Instructions
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/ernnies/zora-ai-expense-tracker.git
+   cd zora-ai-expense-tracker
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   npm install --legacy-peer-deps
+   ```
+   Ensure `leven` is installed to avoid module errors:
+   ```bash
+   npm install leven@4.0.0 --save --legacy-peer-deps
+   ```
+
+3. **Configure Environment Variables**:
+   Create a `.env` file in the root directory:
+   ```env
+   REACT_APP_ZORA_API_KEY=your-zora-api-key
+   REACT_APP_RPC_URL=https://mainnet.base.org
+   ```
+
+4. **Run the Development Server**:
+   ```bash
+   npm start
+   ```
+   Access the app at `http://localhost:3000`.
+
+5. **Build for Production**:
+   ```bash
+   npm run build
+   serve -s build
+   ```
+
+6. **Troubleshooting**:
+   - If `npm start` fails with module errors, clean and reinstall:
+     ```bash
+     rm -rf node_modules package-lock.json
+     npm cache clean --force
+     npm install --legacy-peer-deps
+     ```
+   - Check dependency versions:
+     ```bash
+     npm list @zoralabs/coins-sdk viem wagmi react react-router-dom tailwindcss typescript leven
+     ```
+
+## Key Updates (Current Wave, July 2025)
+
+- **Fixed Build Errors**: Resolved duplicate `fetchTopGainers` declarations, `uri` type mismatch (`ValidMetadataURI`), incorrect `tradeCoin` arguments, and missing React hooks in `TopGainers.tsx`.
+
+  - Reframed “trending coins” as “Trending Expense Tokens” with budgeting categories (e.g., “Budget-Friendly” for stablecoins).
+  - Added `ExpenseTracker.tsx` to display expense coins as budgets.
+  - Enhanced UI with navigation (`App.tsx`) and onboarding modal for clarity.
+- **Dependencies**: Downgraded TypeScript to 5.1.6 for compatibility and added `leven@4.0.0` to fix `@apideck/better-ajv-errors` issues.
+
+## Future Development
+
+- **AI Budget Advisor**: Integrate xAI API for personalized budget suggestions based on expense coin data.
+- **Gamified Savings Goals**: Reward users with “Budget Points” for meeting savings targets, redeemable for UI themes.
+- **Mobile App**: Develop a cross-platform app using FlutterFlow for iOS and Android.
+- **Expense Trends**: Visualize spending with Chart.js in `ExpenseTrends.tsx`.
+- **Social Sharing**: Share budget achievements on X via `xAI` API integration.
+
+- **Cross-Chain Support**: Enable expense coins on Ethereum, Polygon, and Optimism.
+- **Predictive Budgeting**: Use AI to forecast expenses based on historical data and market trends.
+- **Community Challenges**: Add leaderboards for budgeting competitions with Zora-based rewards.
+- **Decentralized Identity**: Integrate privacy-focused authentication (e.g., Civic).
+- **NFT Rewards**: Mint NFTs for budget milestones, tradable on Zora’s marketplace.
+
+## Contributing
+
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/your-feature`).
+3. Commit changes (`git commit -m 'Add your feature'`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Open a pull request.
 
 ---
 
-## 🧑‍💻 Tech Stack
+### Explanation of `README.md` Updates
 
-* **Frontend:** React, Tailwind CSS, Framer Motion
-* **Blockchain Integration:** Base chain, Zora Coins SDK, wagmi, viem
-* **Languages:** TypeScript, JavaScript
-* **Build Tools:** Webpack (via `react-app-rewired`), PostCSS
-* **Key Dependencies:**
+1. **Project Overview**:
+   - Clearly states the app’s purpose: blockchain-based expense tracking with custom coins on the Base chain using `@zoralabs/coins-sdk`.
+   - 
+2. **Features**:
+   - Lists core functionalities (expense tracking, trending tokens, blockchain integration) and planned enhancements for Waves 1 and 2.
+   - Emphasizes the new `ExpenseTracker.tsx` and `TopGainers.tsx` components.
 
+3. **Folder Structure**:
+   - Reflects the updated structure with new files (`ExpenseTracker.tsx`, `TopGainers.tsx`) and configuration files.
+
+4. **Setup Instructions**:
+   - Includes steps to resolve the `leven` module error and ensure build stability.
+   - Covers environment variable setup for Zora and Base RPC.
+
+5. **Key Updates**:
+   - Documents fixes for build errors (duplicate `fetchTopGainers`, `uri`, `tradeCoin`, and missing imports).
+   - Details judge-driven improvements (e.g., “Trending Expense Tokens,” onboarding modal).
+
+6. **Future Development**:
+   - Outlines Wave 1 (AI, gamification, mobile app) and Wave 2 (cross-chain, predictive budgeting, NFTs) to guide future enhancements.
+   - Aligns with 2025 trends (Buildfire, Merehead) like AI, mobile-first, and community engagement.
+
+7. **Troubleshooting**:
+   - Provides commands to diagnose dependency issues, ensuring developers can replicate the setup.
+
+---
+
+### Integration with Project
+
+The `README.md` should be placed in the project root:
+```
+zora-ai-expense-tracker/
+├── README.md
+├── node_modules/
+├── public/
+├── src/
+├── .env
+├── config-overrides.js
+├── package.json
+├── postcss.config.js
+├── tsconfig.json
+```
+
+**Steps to Apply**:
+1. Create or update `README.md` with the above content.
+2. Verify all files from the previous response (e.g., `zoraClient.ts`, `TopGainers.tsx`) are in place.
+3. Run setup commands:
+   ```bash
+   npm install --legacy-peer-deps
+   npm install leven@4.0.0 --save --legacy-peer-deps
+   npm start
+   ```
+4. Test the build:
+   ```bash
+   npm run build
+   serve -s build
+   ```
+
+**Troubleshooting**:
+- If `npm start` or `npm run build` fails, share the error output.
+- Verify dependencies:
+  ```bash
+  npm list @zoralabs/coins-sdk viem wagmi react react-router-dom tailwindcss typescript leven
   ```
-  typescript@5.5.4  
-  wagmi@2.x  
-  viem@2.x  
-  @zoralabs/coins-sdk@0.2.x  
-  tailwindcss@3.4.17  
-  @tailwindcss/postcss@4.x  
-  ```
-
----
-
-## 🧰 Prerequisites
-
-* Node.js v16+
-* npm v8+
-* A Web3 wallet (e.g., MetaMask)
-* Zora API Key (from [Zora Developer Portal](https://zora.co))
-* Base RPC URL (e.g., `https://rpc.base.org`)
-
----
-
-## ⚙️ Installation
-
-```bash
-git clone https://github.com/ernnies/zora-ai-expense-tracker
-cd zora-ai-expense-tracker
-npm install --legacy-peer-deps
-```
-
-Create a `.env` file in the root directory:
-
-```env
-REACT_APP_ZORA_API_KEY=your-zora-api-key
-REACT_APP_RPC_URL=https://rpc.base.org
-```
-
-Start the dev server:
-
-```bash
-npm start
-```
-
-> The app runs at **[http://localhost:3000](http://localhost:3000)**
-
----
-
-## 📁 Project Structure
-
-```
-src/
-├── components/
-│   ├── Header.tsx             # Wallet connect UI
-│   └── ExpenseTracker.tsx     # Dashboard of top expense tokens
-├── hooks/
-│   └── useZoraCoin.ts         # Custom hook for Zora token actions
-├── lib/
-│   └── zoraClient.ts          # API and smart contract interactions
-├── index.css                  # Tailwind CSS directives
-config-overrides.js            # Custom Webpack config
-postcss.config.js              # PostCSS setup
-tailwind.config.js             # Tailwind config
-tsconfig.json                  # TypeScript config
-.env                           # Environment variables
-```
-
----
-
-## 🧪 Usage
-
-### ✅ Connect Wallet
-
-* Click “**Connect Wallet**” in the header to link your MetaMask or supported wallet.
-* Wallet address and disconnect button appear after connection.
-
-### 📊 View Expense Tokens
-
-* Dashboard shows top gainers with:
-
-  * Token name, symbol
-  * Market cap
-  * Mock AI-generated category (e.g., “Food & Dining”)
-
-### 💸 Create / Trade Tokens
-
-Use the `useZoraCoin` hook to:
-
-* Create expense tokens (e.g., “Coffee” token)
-* Trade tokens with on-chain interactions
-
----
-
-## 🔗 Zora Technology Integration
-
-Implemented in `zoraClient.ts` using Zora’s Coins SDK:
-
-* **createExpenseCoin:** Mint custom tokens with metadata.
-* **tradeExpenseCoin:** Execute on-chain trades of tokens.
-* **fetchCoinDetails / fetchTopGainers:** Retrieve token metadata and rankings.
-
----
-
-## 📌 Relevance to Base & Web3
-
-* **Transparency:** Tracks expenses on-chain for immutable, verifiable financial data.
-* **Scalability:** Base’s low fees enable frequent interactions.
-* **AI Simplification:** Categorization reduces cognitive load on users.
-* **DeFi Utility:** Enables decentralized budgeting and expense analytics for crypto-native users.
-
----
-
-## 🛠 Development Notes
-
-* **Resolve Errors:**
-
-  * Install specific AJV versions:
-
-    ```bash
-    npm install ajv@8.17.1 ajv-keywords@5.1.0 --save
-    ```
-  * Use `--legacy-peer-deps` during install to avoid `react-scripts` issues.
-* **Suppress Warnings:**
-
-  * `config-overrides.js` prevents source map clutter from `@reown`, `superstruct`.
-* **Run TypeScript Smoothly:**
-
-  * Target: `ES2020` (supports `BigInt`, optional chaining, etc.)
-
----
-
-## 🧯 Troubleshooting
-
-### Build Errors
-
-```bash
-npm cache clean --force
-rm -rf node_modules package-lock.json
-npm install --legacy-peer-deps
-```
-
-Ensure `postcss.config.js` includes:
-
-```js
-module.exports = {
-  plugins: [require('tailwindcss'), require('autoprefixer')],
-};
-```
-
-### API Key Issues
-
-* Confirm `REACT_APP_ZORA_API_KEY` is valid and properly loaded in `.env`.
-
-### Dependency Conflicts
-
-Check:
-
-```bash
-npm list wagmi viem @zoralabs/coins-sdk tailwindcss @tailwindcss/postcss typescript ajv ajv-keywords
-```
-
-## 🤝 Contributing
-
-We welcome contributions!
-
-1. Fork this repo
-2. Create a new branch: `git checkout -b feature/my-feature`
-3. Commit and push changes
-4. Open a pull request
-
----
-
-## 📜 License
-
-MIT License. See `LICENSE` file for details.
+- Ensure `.env` has valid `REACT_APP_ZORA_API_KEY` and `REACT_APP_RPC_URL`.
