@@ -22,12 +22,13 @@ export async function createExpenseCoin(
     uri: string;
     payoutRecipient: Address;
     platformReferrer?: Address;
+    category?: string; // e.g., "Groceries", "Rent"
   },
   account: Account
 ) {
   const validUri = params.uri.startsWith('https://') || params.uri.startsWith('ipfs://')
     ? params.uri
-    : `https://metadata.zora.co/${params.name}`; // Fallback URI
+    : `https://metadata.zora.co/${params.name}`;
   const result = await createCoin(
     {
       ...params,
@@ -39,7 +40,7 @@ export async function createExpenseCoin(
     publicClient,
     { gasMultiplier: 120 }
   );
-  return result;
+  return { ...result, category: params.category };
 }
 
 export async function tradeExpenseCoin(
@@ -79,7 +80,29 @@ export async function fetchTopGainers() {
   const response = await getCoinsTopGainers({ count: 10 });
   const coins = response.data?.exploreList?.edges?.map((edge: any) => ({
     ...edge.node,
-    category: edge.node.name.includes('Stable') ? 'Budget-Friendly' : 'Investment',
+    category: edge.node.name.includes('Stable') || edge.node.symbol.includes('USD')
+      ? 'Budget-Friendly'
+      : edge.node.name.includes('Utility') ? 'Utility' : 'Investment',
   })) || [];
-  return coins;
+  // Filter out irrelevant tokens (e.g., meme coins like amps.fun)
+  return coins.filter((coin: any) => !coin.name.toLowerCase().includes('amps.fun'));
+}
+
+export async function getBudgetAdvice(coins: string[]) {
+  const data = await Promise.all(coins.map(addr => fetchCoinDetails(addr)));
+  const response = await fetch('https://x.ai/api/analyze', {
+    method: 'POST',
+    body: JSON.stringify({ spending: data }),
+    headers: { 'Authorization': `Bearer ${process.env.REACT_APP_XAI_API_KEY}` },
+  }).then(res => res.json());
+  return response.advice || [];
+}
+
+export async function getTutorialSteps() {
+  const response = await fetch('https://x.ai/api/tutorial', {
+    method: 'POST',
+    body: JSON.stringify({ context: 'expense-tracker' }),
+    headers: { 'Authorization': `Bearer ${process.env.REACT_APP_XAI_API_KEY}` },
+  }).then(res => res.json());
+  return response.steps || [];
 }
