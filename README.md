@@ -145,30 +145,10 @@ zora-ai-expense-tracker/
    - Documents fixes for build errors (duplicate `fetchTopGainers`, `uri`, `tradeCoin`, and missing imports).
    - Details judge-driven improvements (e.g., “Trending Expense Tokens,” onboarding modal).
 
-6. **Future Development**:
-   - Outlines Wave 1 (AI, gamification, mobile app) and Wave 2 (cross-chain, predictive budgeting, NFTs) to guide future enhancements.
-   - Aligns with 2025 trends (Buildfire, Merehead) like AI, mobile-first, and community engagement.
 
-7. **Troubleshooting**:
+6. **Troubleshooting**:
    - Provides commands to diagnose dependency issues, ensuring developers can replicate the setup.
 
----
-
-### Integration with Project
-
-The `README.md` should be placed in the project root:
-```
-zora-ai-expense-tracker/
-├── README.md
-├── node_modules/
-├── public/
-├── src/
-├── .env
-├── config-overrides.js
-├── package.json
-├── postcss.config.js
-├── tsconfig.json
-```
 
 **Steps to Apply**:
 1. Create or update `README.md` with the above content.
